@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/homepage.css') }}">
+
+{% endblock %}
+
+
+{% block body %}
+    <div class="hero">
+        <h1>Bienvenue sur RhythmRush Label</h1>
+        <p>La plateforme pour connecter artistes, beatmakers, et producteurs.</p>
+        <a href="{{ path('app_register') }}" class="btn">Rejoignez-nous</a>
+    </div>
+
+    <section class="info-section">
+        <h2>Pourquoi nous choisir ?</h2>
+        <div class="info-card">
+            <h3>Pour les Artistes</h3>
+            <p>Créez votre profil, partagez votre musique et connectez-vous avec des producteurs.</p>
+            <a href="{{ path('artist_overview') }}" class="btn-small">En savoir plus</a>
+        </div>
+        <div class="info-card">
+            <h3>Pour les Producteurs</h3>
+            <p>Trouvez des talents, suivez les artistes et accédez aux meilleurs morceaux.</p>
+            <a href="{{ path('producer_overview') }}" class="btn-small">En savoir plus</a>
+        </div>
+        <div class="info-card">
+            <h3>Pour les Beatmakers</h3>
+            <p>Publiez vos beats et collaborez avec les artistes de la communauté.</p>
+            <a href="{{ path('beatmaker_overview') }}" class="btn-small">En savoir plus</a>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <h2>Témoignages</h2>
+        <div class="testimonial-card">
+            <p>"Une plateforme incroyable pour découvrir de nouveaux talents!"</p>
+            <span>- Alex, Producteur</span>
+        </div>
+        <div class="testimonial-card">
+            <p>"La meilleure façon de collaborer dans l'industrie de la musique."</p>
+            <span>- Emma, Artiste</span>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2>Prêt à rejoindre RhythmRush ?</h2>
+        <p>Créez un compte gratuit et commencez à collaborer dès aujourd'hui.</p>
+        <a href="{{ path('app_register') }}" class="btn">Inscrivez-vous gratuitement</a>
+    </section>
+{% endblock %}

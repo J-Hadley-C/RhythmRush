@@ -1,0 +1,48 @@
+/* Style de la barre de navigation */
+.navbar {
+    display: flex;
+    justify-content: center; /* Centre le contenu de la navbar */
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 2px solid #eaeaea;
+    background-color: white;
+}
+
+.navbar-center {
+    display: flex;
+    align-items: center;
+    gap: 60px; /* Espace entre le logo et les onglets */
+}
+
+/* Style du logo */
+.navbar-logo img {
+    width: 60px;
+    height: auto;
+}
+
+/* Style des liens en onglets */
+.navbar-tabs {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-tab {
+    padding: 10px 20px;
+    color: #333;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.nav-tab:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Indique l’onglet actif */
+.nav-tab.active {
+    background-color: #333;
+    color: #fff;
+}

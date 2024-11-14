@@ -1,0 +1,9 @@
+{# templates/artist/overview.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ title }}</h1>
+    <p>{{ description }}</p>
+    <p>Créez votre profil, partagez votre musique et connectez-vous avec des producteurs et des beatmakers.</p>
+    <a href="{{ path('app_register') }}" class="btn">Rejoignez-nous en tant qu'artiste</a>
+{% endblock %}

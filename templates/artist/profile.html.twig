@@ -1,0 +1,19 @@
+{# templates/artist/profile.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Profil de {{ artist.user.nickname }}</h1>
+    <p>Bio : {{ artist.bio }}</p>
+    <p>Ville : {{ artist.city }}</p>
+
+    <h2>Musiques</h2>
+    <ul>
+        {% for music in artist.musics %}
+            <li>{{ music.name }}</li>
+        {% else %}
+            <li>Aucune musique ajoutée.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ path('artist_profile_edit', { id: artist.id }) }}">Modifier le profil</a>
+{% endblock %}

@@ -1,0 +1,19 @@
+{# templates/music/show.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>{{ music.name }}</h1>
+    <p>Artiste : {{ music.creator.nickname }}</p>
+    {% if music.cover %}
+        <img src="{{ asset(music.cover) }}" alt="Image de couverture" style="width: 200px;">
+    {% endif %}
+    <audio controls>
+        <source src="{{ asset(music.lien) }}" type="audio/mp3">
+        Votre navigateur ne supporte pas la lecture audio.
+    </audio>
+    <a href="{{ path('music_edit', { id: music.id }) }}" class="btn">Modifier</a>
+    <form method="post" action="{{ path('music_delete', { id: music.id }) }}" onsubmit="return confirm('Êtes-vous sûr ?');">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ music.id) }}">
+        <button type="submit" class="btn btn-danger">Supprimer</button>
+    </form>
+{% endblock %}
