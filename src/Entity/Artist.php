@@ -13,6 +13,7 @@ use App\Entity\Music;
 use App\Entity\Follow;
 
 #[ORM\Entity(repositoryClass: ArtistRepository::class)]
+#[ORM\HasLifecycleCallbacks] // Indique que cette entité a des callbacks automatiques
 class Artist
 {
     #[ORM\Id]
@@ -46,10 +47,19 @@ class Artist
     #[ORM\JoinTable(name: 'artist_style')]
     private Collection $styles;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $createdAt = null;
+
     public function __construct()
     {
         $this->musics = new ArrayCollection();
         $this->styles = new ArrayCollection();
+    }
+
+    #[ORM\PrePersist]
+    public function setCreatedAtValue(): void
+    {
+        $this->createdAt = new \DateTime();
     }
 
     public function getId(): ?int
@@ -181,5 +191,10 @@ class Artist
         $this->styles->removeElement($style);
 
         return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
     }
 }

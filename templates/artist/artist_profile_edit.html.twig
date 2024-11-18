@@ -1,0 +1,35 @@
+{# templates/artist_profile_edit.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier le Profil{% endblock %}
+
+{% block body %}
+    <div class="artist-profile-edit">
+        <h1>Modifier le Profil de l'Artiste</h1>
+
+        <form method="post" action="{{ path('artist_profile', { id: app.user.id }) }}">
+            <div class="form-group">
+                <label for="nickname">Nom d'utilisateur :</label>
+                <input type="text" id="nickname" name="nickname" value="{{ app.user.nickname }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="city">Ville :</label>
+                <input type="text" id="city" name="city" value="{{ app.user.artist.city }}">
+            </div>
+
+            <div class="form-group">
+                <label for="bio">Biographie :</label>
+                <textarea id="bio" name="bio" rows="5">{{ app.user.artist.bio }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="styles">Styles :</label>
+                <input type="text" id="styles" name="styles" value="{{ app.user.artist.styles | join(', ') }}">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Mettre à jour le Profil</button>
+        </form>
+    </div>
+{% endblock %}

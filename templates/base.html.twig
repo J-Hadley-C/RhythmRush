@@ -7,18 +7,32 @@
     <link rel="stylesheet" href="{{ asset('css/navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/homepage.css') }}">
     <link rel="stylesheet" href="{{ asset('css/register.css') }}">
+    {# <link rel="stylesheet" href="http://localhost:8000/css/homepage.css"> #}
 </head>
 <body>
     <!-- Barre de navigation avec logo et liens stylisés en onglets -->
     <header>
         <nav class="navbar">
             <div class="navbar-center">
-                <a href="{{ path('app_home') }}" class="navbar-logo">
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo">
+                <!-- Logo redirigeant en fonction du rôle de l'utilisateur -->
+                <a href="{% if is_granted('ROLE_ADMIN') %}{{ path('admin_dashboard') }}{% else %}{{ path('app_home') }}{% endif %}" class="navbar-logo">
+                    <img src="{{ asset('images/logo6.jpeg') }}" alt="Logo">
                 </a>
                 <div class="navbar-tabs">
-                    <a href="{{ path('app_register') }}" class="nav-tab">Inscription</a>
-                    <a href="{{ path('app_login') }}" class="nav-tab">Connexion</a>
+                    {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <!-- Liens pour l'inscription et la connexion si l'utilisateur n'est pas authentifié -->
+                        <a href="{{ path('app_register') }}" class="nav-tab">Inscription</a>
+                        <a href="{{ path('app_login') }}" class="nav-tab">Connexion</a>
+                    {% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <!-- Lien pour l'administrateur -->
+                        <a href="{{ path('admin_dashboard') }}" class="nav-tab">Admin Dashboard</a>
+                    {% endif %}
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <!-- Lien vers le profil utilisateur avec l'ID de l'utilisateur connecté -->
+                        <a href="{{ path('artist_profile_show', { id: app.user.id }) }}" class="nav-tab">Mon Profil</a>
+                        <a href="{{ path('app_logout') }}" class="nav-tab">Déconnexion</a>
+                    {% endif %}
                 </div>
             </div>
         </nav>
@@ -29,3 +43,4 @@
     </main>
 </body>
 </html>
+

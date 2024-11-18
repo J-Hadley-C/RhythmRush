@@ -42,8 +42,11 @@ class RegisterType extends AbstractType
                     new Assert\NotBlank(['message' => 'Le rôle est requis']),
                 ],
             ])
-            ->add('password', PasswordType::class, [
-                'label' => 'Mot de passe',
+            ->add('password', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'first_options' => ['label' => 'Mot de passe'],
+                'second_options' => ['label' => 'Confirmez votre mot de passe'],
+                'invalid_message' => 'Les mots de passe doivent correspondre.',
                 'constraints' => [
                     new Assert\NotBlank(['message' => 'Le mot de passe est requis']),
                 ],

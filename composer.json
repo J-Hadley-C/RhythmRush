@@ -8,6 +8,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "amphp/http-client": "4.4.0",
+        "amphp/socket": "^1.2",
         "doctrine/dbal": "^3",
         "doctrine/doctrine-bundle": "^2.13",
         "doctrine/doctrine-migrations-bundle": "^3.3",
@@ -36,6 +37,7 @@
         "symfony/property-info": "7.1.*",
         "symfony/runtime": "7.1.*",
         "symfony/security-bundle": "7.1.*",
+        "symfony/security-http": "7.1.*",
         "symfony/serializer": "7.1.*",
         "symfony/stimulus-bundle": "^2.21",
         "symfony/string": "7.1.*",
@@ -106,6 +108,7 @@
         "symfony/maker-bundle": "^1.0",
         "symfony/phpunit-bridge": "^7.1",
         "symfony/stopwatch": "7.1.*",
+        "symfony/var-dumper": "7.1.*",
         "symfony/web-profiler-bundle": "7.1.*"
     }
 }

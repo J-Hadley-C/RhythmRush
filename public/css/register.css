@@ -1,4 +1,3 @@
-/* public/css/register.css */
 
 .form-container {
     max-width: 600px;
@@ -33,38 +32,42 @@
 .input-field:focus {
     border-color: #007bff;
     outline: none;
+    box-shadow: 0px 0px 5px rgba(0, 123, 255, 0.5); /* Ajout d'un léger effet de glow pour indiquer le focus */
 }
 
 .role-choice {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     margin-top: 10px;
 }
 
 .role-choice label {
     font-size: 16px;
-    margin-right: 10px;
     color: #333;
+    display: flex;
+    align-items: center;
 }
 
 .role-choice input[type="radio"] {
-    margin-right: 5px;
-    transform: scale(1.2); /* agrandir un peu pour un meilleur visuel */
+    margin-right: 8px;
+    transform: scale(1.3); /* Légèrement plus grand pour un meilleur visuel */
 }
 
 .btn {
-    padding: 10px 20px;
+    padding: 12px 25px;
     background-color: #007bff;
     color: #fff;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    margin-top: 15px;
+    margin-top: 20px;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 .btn:hover {
     background-color: #0056b3;
+    transform: translateY(-2px); /* Ajout d'un léger effet de levée lors du survol */
 }
 
 .alert {
@@ -74,4 +77,11 @@
     background-color: #d4edda;
     border: 1px solid #c3e6cb;
     border-radius: 4px;
+    text-align: left; /* Alignement à gauche pour le texte de l'alerte */
+}
+
+/* Ajout d'un style de bouton désactivé pour une meilleure expérience utilisateur */
+.btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
 }

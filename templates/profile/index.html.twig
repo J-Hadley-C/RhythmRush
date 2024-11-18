@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Profil{% endblock %}
+
+{% block body %}
+    <h1>Bienvenue, {{ user.nickname }}</h1>
+    <p>Email: {{ user.email }}</p>
+    {# <p>Date de création: {{ user.createdAt|date('d-m-Y H:i') }}</p> #}
+    {# Ajoutez ici plus d'informations sur l'utilisateur #}
+{% endblock %}

@@ -8,6 +8,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use App\Entity\Artist;
 use App\Entity\Producteur;
+use DateTimeImmutable;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
@@ -21,15 +22,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 180)]
     private ?string $email = null;
 
-    /**
-     * @var list<string> The user roles
-     */
-    #[ORM\Column]
+    #[ORM\Column(type: "json")]
     private array $roles = [];
 
-    /**
-     * @var string The hashed password
-     */
     #[ORM\Column]
     private ?string $password = null;
 
@@ -48,22 +43,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(mappedBy: 'user', targetEntity: Producteur::class, cascade: ['persist', 'remove'])]
     private ?Producteur $producteur = null;
 
-    public function getId(): ?int
+    #[ORM\Column(type: 'boolean')]
+    private bool $isActive = false;
+
+    #[ORM\Column(type: 'string', length: 64, nullable: true)]
+    private ?string $confirmationToken = null;
+
+    #[ORM\Column(type: 'datetime_immutable')]
+    private ?DateTimeImmutable $createdAt = null;
+
+    // Constructor
+    public function __construct()
     {
-        return $this->id;
+        $this->createdAt = new DateTimeImmutable();
     }
 
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): static
-    {
-        $this->email = $email;
-
-        return $this;
-    }
+    // Getters and setters...
 
     /**
      * A visual identifier that represents this user.
@@ -78,20 +73,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see UserInterface
      *
-     * @return list<string>
+     * @return array<string>
      */
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles[] = 'ROLE_USER'; // guarantee every user at least has ROLE_USER
 
         return array_unique($roles);
     }
 
     /**
-     * @param list<string> $roles
+     * Retourne les rôles sous forme de chaîne de caractères pour éviter l'erreur d'array to string conversion
      */
+    public function getRolesAsString(): string
+    {
+        return implode(', ', $this->getRoles());
+    }
+
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
@@ -99,9 +98,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @see PasswordAuthenticatedUserInterface
-     */
     public function getPassword(): ?string
     {
         return $this->password;
@@ -113,10 +109,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-
-    #[ORM\Column(type: 'boolean')]
-    private bool $isActive = false;
 
     public function isActive(): bool
     {
@@ -130,19 +122,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @see UserInterface
-     */
     public function eraseCredentials(): void
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
+        // Si vous stockez des données sensibles temporaires sur l'utilisateur, effacez-les ici
     }
-
-    #[ORM\Column(type: 'string', length: 64, nullable: true)]
-    private ?string $confirmationToken = null;
-
-    // ...
 
     public function getConfirmationToken(): ?string
     {
@@ -151,9 +134,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setConfirmationToken(?string $confirmationToken): self
     {
-        
-      
-$this->confirmationToken = $confirmationToken;
+        $this->confirmationToken = $confirmationToken;
+
+        return $this;
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): static
+    {
+        $this->email = $email;
 
         return $this;
     }
@@ -216,5 +214,10 @@ $this->confirmationToken = $confirmationToken;
         $this->producteur = $producteur;
 
         return $this;
+    }
+
+    public function getCreatedAt(): ?DateTimeImmutable
+    {
+        return $this->createdAt;
     }
 }

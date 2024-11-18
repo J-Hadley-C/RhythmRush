@@ -1,0 +1,33 @@
+{# templates/admin/admin_dashboard.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Tableau de Bord Admin{% endblock %}
+
+{% block body %}
+    <div class="admin-dashboard">
+        <h1>Bienvenue dans le Tableau de Bord Administrateur</h1>
+        
+        <div class="dashboard-sections">
+            <section>
+                <h2>Gestion des Utilisateurs</h2>
+                <a href="{{ path('admin_user_crud') }}" class="btn">Gérer les utilisateurs</a>
+            </section>
+            
+            <section>
+                <h2>Gestion des Artistes</h2>
+                <a href="{{ path('admin_artist_crud') }}" class="btn">Gérer les artistes</a>
+            </section>
+            
+            <section>
+                <h2>Gestion des Producteurs</h2>
+                <a href="{{ path('admin_producteur_crud') }}" class="btn">Gérer les producteurs</a>
+            </section>
+            
+            <section>
+                <h2>Gestion des Beatmakers</h2>
+                <a href="{{ path('admin_beatmaker_crud') }}" class="btn">Gérer les beatmakers</a>
+            </section>
+        </div>
+    </div>
+{% endblock %}

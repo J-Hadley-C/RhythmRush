@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Entity\User;
 use App\Entity\Music;
 use App\Entity\Style;
+use DateTimeImmutable;
 
 #[ORM\Entity(repositoryClass: BeatmakerRepository::class)]
 class Beatmaker
@@ -24,6 +25,13 @@ class Beatmaker
     #[ORM\Column(length: 100)]
     private ?string $city = null;
 
+    #[ORM\Column(length: 150)]
+    private ?string $name = null;
+
+
+    #[ORM\Column(length: 150)]
+    private ?string $nickname = null;
+
     #[ORM\OneToOne(inversedBy: 'beatmaker', targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
@@ -35,10 +43,17 @@ class Beatmaker
     #[ORM\JoinTable(name: 'beatmaker_style')]
     private Collection $styles;
 
+    #[ORM\Column(type: 'datetime_immutable')]
+    private ?DateTimeImmutable $createdAt = null;
+
+
+
+
     public function __construct()
     {
         $this->musics = new ArrayCollection();
         $this->styles = new ArrayCollection();
+        $this->createdAt = new DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -66,6 +81,31 @@ class Beatmaker
     public function setCity(string $city): static
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+
+    public function getNickname(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setNickname(string $name): static
+    {
+        $this->name = $name;
 
         return $this;
     }
@@ -133,5 +173,10 @@ class Beatmaker
         $this->styles->removeElement($style);
 
         return $this;
+    }
+
+    public function getCreatedAt(): ?DateTimeImmutable
+    {
+        return $this->createdAt;
     }
 }

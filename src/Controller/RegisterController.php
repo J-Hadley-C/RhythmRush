@@ -37,7 +37,9 @@ class RegisterController extends AbstractController
             $user->setPassword($hashedPassword);
 
             // Enregistre le rôle en tant que tableau
-            $user->setRoles([$form->get('roles')->getData()]);
+            // $user->setRoles([$form->get('roles')->getData()]);
+            $role = $form->get('roles')->getData();
+            $user->setRoles(is_array($role) ? $role : [$role]);
 
             // Génère un token de confirmation
             $confirmationToken = bin2hex(random_bytes(32));

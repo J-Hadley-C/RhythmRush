@@ -1,0 +1,21 @@
+{# templates/artist/artist_profile.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil de l'Artiste{% endblock %}
+
+{% block body %}
+    <div class="artist-profile">
+        <h1>Profil de l'Artiste</h1>
+
+        <div class="artist-details">
+            <p><strong>Nom d'utilisateur :</strong> {{ artist.user.nickname }}</p>
+            <p><strong>Email :</strong> {{ artist.user.email }}</p>
+            <p><strong>Ville :</strong> {{ artist.city }}</p>
+            <p><strong>Biographie :</strong> {{ artist.bio }}</p>
+            <p><strong>Styles :</strong> {{ artist.styles | join(', ') }}</p>
+        </div>
+
+        <a href="{{ path('artist_profile_edit', { id: artist.id }) }}">Modifier le profil</a>
+    </div>
+{% endblock %}

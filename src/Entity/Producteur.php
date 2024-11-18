@@ -12,6 +12,7 @@ use App\Entity\Style;
 use App\Entity\Follow;
 
 #[ORM\Entity(repositoryClass: ProducteurRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Producteur
 {
     #[ORM\Id]
@@ -45,10 +46,19 @@ class Producteur
     #[ORM\OneToMany(mappedBy: 'producer', targetEntity: Follow::class, cascade: ['persist', 'remove'])]
     private Collection $follows;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $createdAt = null;
+
     public function __construct()
     {
         $this->styles = new ArrayCollection();
         $this->follows = new ArrayCollection();
+    }
+
+    #[ORM\PrePersist]
+    public function setCreatedAtValue(): void
+    {
+        $this->createdAt = new \DateTime();
     }
 
     public function getId(): ?int
@@ -180,5 +190,10 @@ class Producteur
         }
 
         return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
     }
 }
